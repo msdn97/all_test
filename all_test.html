@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>테이블 틀고정 테스트</title>
+  </head>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $(document).ready(function () {
+      let names = [
+        "Steven Paul Jobs",
+        "Bill Gates",
+        "Mark Elliot Zuckerberg",
+        "Elon Musk",
+        "Jeff Bezos",
+        "Warren Edward Buffett",
+        "Larry Page",
+        "Larry Ellison",
+        "Tim Cook",
+        "Lloyd Blankfein",
+      ];
+
+      $("#fnMap").click(function () {
+        //모든 이름을 대문자로 바꾸어서 출력하시오.
+        let upperCaseName = names.map((item) => item.toUpperCase());
+        console.log(upperCaseName);
+        //성을제외한 이름만 출력하시오. (예-[“Steven”,“Bill”,“Mark”,“Elon”…])
+        let firstNames = names.map((item) => item.split(" ")[0]);
+        console.log(firstNames);
+        //이름의 이니셜만 출력하시오. (예-[“SPU”,“BG”,“MEZ”,“EM”…])
+        let initialOnly = names.map((item) => {
+          let splitName = item.split(" ");
+          let initial = "";
+          splitName.forEach((nameItem) => (initial += nameItem[0]));
+          return initial;
+        });
+        console.log(initialOnly);
+      });
+
+      $("#fnfilter").click(function () {
+        //이름에 a를 포함한 사람들을 출력하시오.
+        let includeA = names.filter((item) => item.includes("a"));
+        console.log(includeA);
+        //이름에 같은 글자가 연속해서 들어간 사람을 출력하시오. (예-tt,ff,ll 이런 글자들)
+        let doubleLetter = names.filter((item) => {
+          let splitName = item.split("");
+          return splitName.some(
+            (letter, index) => letter == splitName[index + 1]
+          );
+        });
+
+        console.log(doubleLetter);
+      });
+      $("#fnsome").click(function () {
+        //전체 이름의 길이가 20자 이상인 사람이 있는가?
+        console.log(names.some((item) => item.length >= 20));
+        //성을 제외한 이름에 p를 포함한 사람이 있는가?(대소문자 상관 no)
+        console.log(
+          names.some((item) => {
+            let splitName = item.split(" ");
+            splitName.pop();
+            return splitName.some((eachName) =>
+              eachName.toLocaleLowerCase().includes("p")
+            );
+          })
+        );
+      });
+      $("#fnevery").click(function () {
+        //모두의 전체 이름의 길이가 20자 이상인가?
+        console.log(names.every((item) => item.length >= 20));
+        //모두의 이름에 a 가 포함되어 있는가?
+
+        console.log(names.every((item) => item.includes("a")));
+      });
+      $("#fnfind").click(function () {
+        //전체 이름의 길이가 20자 이상인 사람을 찾으시오.
+        console.log(names.find((item) => item.length >= 20));
+        //미들네임이 포함되어있는 사람을 찾으시오.(예-Steven Paul Jobs)
+        console.log(names.find((item) => item.split(" ").length >= 3));
+      });
+      $("#fnfindIndex").click(function () {
+        //전체 이름의 길이가 20자 이상인 사람의 인덱스 번호를 찾으시오.
+        console.log(names.findIndex((item) => item.length >= 20));
+        //미들네임이 포함되어있는 사람의 인덱스 번호를 찾으시오.
+        console.log(names.findIndex((item) => item.split(" ").length >= 3));
+      });
+    });
+
+    $.getJSON("https://extreme-ip-lookup.com/json", function (data) {
+      console.log("https://extreme-ip-lookup.com :");
+      console.log(data);
+
+      $("#1cty_businessName").text("businessName : " + data.businessName);
+      $("#1cty_businessWebsite").text(
+        "businessWebsite : " + data.businessWebsite
+      );
+      $("#1cty_city").text("city : " + data.city);
+      $("#1cty_continent").text("continent : " + data.continent);
+      $("#1cty_country").text("country : " + data.country);
+      $("#1cty_countryCode").text("countryCode : " + data.countryCode);
+      $("#1cty_ipName").text("ipName : " + data.ipName);
+      $("#1cty_ipType").text("ipType : " + data.ipType);
+      $("#1cty_isp").text("isp : " + data.isp);
+      $("#1cty_lat").text("lat : " + data.lat);
+      $("#1cty_lon").text("lon : " + data.lon);
+      $("#1cty_org").text("org : " + data.org);
+      $("#1cty_query").text("query : " + data.query);
+      $("#1cty_region").text("region : " + data.region);
+      $("#1cty_status").text("status : " + data.status);
+    });
+    $.getJSON("http://ipinfo.io", function (data) {
+      console.log("http://ipinfo.io : ");
+      console.log(data);
+
+      $("#3cty_city").text("city : " + data.city);
+      $("#3cty_country").text("country : " + data.country);
+      $("#3cty_ip").text("ip : " + data.ip);
+      $("#3cty_loc").text("loc : " + data.loc);
+      $("#3cty_org").text("org : " + data.org);
+      $("#3cty_postal").text("postal : " + data.postal);
+      $("#3cty_readme").text("readme : " + data.readme);
+      $("#3cty_region").text("region : " + data.region);
+      $("#3cty_timezone").text("timezone : " + data.timezone);
+    });
+    $.get(
+      "http://ip-api.com/json",
+      function (data) {
+        console.log("http://ip-api.com : ");
+        console.log(data);
+
+        $("#2cty_as").text("as : " + data.status);
+        $("#2cty_city").text("city : " + data.city);
+        $("#2cty_country").text("country : " + data.country);
+        $("#2cty_countryCode").text("countryCode : " + data.countryCode);
+        $("#2cty_isp").text("isp : " + data.isp);
+        $("#2cty_lat").text("lat : " + data.lat);
+        $("#2cty_lon").text("lon : " + data.lon);
+        $("#2cty_org").text("org : " + data.org);
+        $("#2cty_query").text("query : " + data.query);
+        $("#2cty_region").text("region : " + data.region);
+        $("#2cty_regionName").text("regionName : " + data.regionName);
+        $("#2cty_status").text("status : " + data.status);
+        $("#2cty_timezone").text("timezone : " + data.timezone);
+        $("#2cty_zip").text("zip : " + data.zip);
+      },
+      "jsonp"
+    );
+  </script>
+  <body>
+    <div>
+      <button type="button" id="fnMap">Map</button>
+      <button type="button" id="fnfilter">filter</button>
+      <button type="button" id="fnsome">some</button>
+      <button type="button" id="fnevery">every</button>
+      <button type="button" id="fnfind">find</button>
+      <button type="button" id="fnfindIndex">findIndex</button>
+      <br />
+      <div style="font-weight: bold; color: blue">
+        https://extreme-ip-lookup.com :
+      </div>
+      <div id="1cty_businessName">where</div>
+      <div id="1cty_businessWebsite">where</div>
+      <div id="1cty_city">where</div>
+      <div id="1cty_continent">where</div>
+      <div id="1cty_country">where</div>
+      <div id="1cty_countryCode">where</div>
+      <div id="1cty_ipName">where</div>
+      <div id="1cty_ipType">where</div>
+      <div id="1cty_isp">where</div>
+      <div id="1cty_lat">where</div>
+      <div id="1cty_lon">where</div>
+      <div id="1cty_org">where</div>
+      <div id="1cty_query">where</div>
+      <div id="1cty_region">where</div>
+      <div id="1cty_status">where</div>
+      <br />
+      <div style="font-weight: bold; color: blue">http://ipinfo.io :</div>
+      <div id="3cty_city">where</div>
+      <div id="3cty_country">where</div>
+      <div id="3cty_ip">where</div>
+      <div id="3cty_loc">where</div>
+      <div id="3cty_org">where</div>
+      <div id="3cty_postal">where</div>
+      <div id="3cty_readme">where</div>
+      <div id="3cty_region">where</div>
+      <div id="3cty_timezone">where</div>
+      <br />
+      <div style="font-weight: bold; color: blue">http://ip-api.com :</div>
+      <div id="2cty_as">where</div>
+      <div id="2cty_city">where</div>
+      <div id="2cty_country">where</div>
+      <div id="2cty_countryCode">where</div>
+      <div id="2cty_isp">where</div>
+      <div id="2cty_lat">where</div>
+      <div id="2cty_lon">where</div>
+      <div id="2cty_org">where</div>
+      <div id="2cty_query">where</div>
+      <div id="2cty_region">where</div>
+      <div id="2cty_regionName">where</div>
+      <div id="2cty_status">where</div>
+      <div id="2cty_timezone">where</div>
+      <div id="2cty_zip">where</div>
+      <br />
+    </div>
+  </body>
+</html>
